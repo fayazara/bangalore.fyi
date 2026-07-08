@@ -1,7 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router"
 import { Badge } from "@cloudflare/kumo/components/badge"
 import { LinkButton } from "@cloudflare/kumo/components/button"
-import { Breadcrumbs } from "@cloudflare/kumo/components/breadcrumbs"
 import {
   ClockIcon,
   MapPinIcon,
@@ -26,12 +25,6 @@ function CafeDetail() {
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-8 sm:px-6">
-      <Breadcrumbs>
-        <Breadcrumbs.Link href="/cafes">Cafes</Breadcrumbs.Link>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Current>{cafe.name}</Breadcrumbs.Current>
-      </Breadcrumbs>
-
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-4 sm:grid-rows-2">
         <div className="aspect-[4/3] overflow-hidden rounded-xl bg-kumo-recessed ring-1 ring-black/[0.06] sm:col-span-2 sm:row-span-2 sm:aspect-auto">
           <img

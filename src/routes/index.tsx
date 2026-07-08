@@ -35,33 +35,31 @@ function timeAgo(iso: string) {
 
 function Home() {
   return (
-    <div className="flex flex-col gap-16 pb-20 sm:gap-20">
+    <div className="flex flex-col gap-16 pt-8 pb-20 sm:gap-20">
       {/* Hero */}
       <section>
-        <div className="mx-auto flex max-w-3xl flex-col gap-3 px-4 py-14 sm:px-6 sm:py-48">
-          <h1 className="max-w-2xl text-[32px] leading-[1.15] font-semibold tracking-tight text-kumo-strong sm:text-[40px]">
+        <div className="relative mx-auto h-64 max-w-3xl gap-3 rounded-3xl bg-white px-4 pt-6 ring-1 ring-neutral-100 sm:px-6">
+          <h1 className="text-neutral-700 max-w-2xl text-4xl leading-[1.15] font-semibold tracking-tight">
             Everything you need to live well in Bangalore
           </h1>
+          <span className="absolute right-4 bottom-4 size-3.5 rounded-full bg-neutral-600"></span>
         </div>
       </section>
 
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-16 px-4 sm:gap-32 sm:px-6">
         {/* Explore grid */}
-        <Section
-          title="Explore bangalore.fyi"
-          description="Ten ways to find what you need, all built by the community."
-        >
+        <Section title="Explore bangalore.fyi">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
-                className="flex items-center gap-4 rounded-2xl bg-kumo-base p-5"
+                className="flex items-center gap-4 rounded-2xl bg-kumo-base p-5 ring-1 ring-neutral-100"
               >
                 <span
                   className={cn(
                     "flex size-11 shrink-0 items-center justify-center rounded-xl",
-                    item.tint.card,
+                    item.tint.card
                   )}
                 >
                   <item.icon
@@ -82,11 +80,7 @@ function Home() {
         </Section>
 
         {/* This week's events */}
-        <Section
-          title="This week in Bangalore"
-          description="Meetups, markets, gigs and workshops happening soon."
-          viewAllHref="/events"
-        >
+        <Section title="This week in Bangalore" viewAllHref="/events">
           <ListContainer>
             {events.slice(0, 5).map((event) => (
               <ListRow
@@ -120,11 +114,7 @@ function Home() {
         </Section>
 
         {/* Cafes */}
-        <Section
-          title="Cafes to work from"
-          description="Rated on wifi, power outlets, noise and food - not just vibes."
-          viewAllHref="/cafes"
-        >
+        <Section title="Cafes to work from" viewAllHref="/cafes">
           <ListContainer>
             {cafes.slice(0, 4).map((cafe) => (
               <ListRow
@@ -159,11 +149,7 @@ function Home() {
         </Section>
 
         {/* Curated lists */}
-        <Section
-          title="Curated by locals"
-          description="Ranked lists from people who actually know."
-          viewAllHref="/lists"
-        >
+        <Section title="Curated by locals" viewAllHref="/lists">
           <ListContainer>
             {lists.slice(0, 3).map((list) => (
               <ListRow key={list.slug} href={`/lists/${list.slug}`}>
@@ -182,11 +168,7 @@ function Home() {
         </Section>
 
         {/* Q&A */}
-        <Section
-          title="Recently asked"
-          description="Questions from people figuring out life here."
-          viewAllHref="/qna"
-        >
+        <Section title="Recently asked" viewAllHref="/qna">
           <ListContainer>
             {questions.slice(0, 4).map((q) => (
               <ListRow key={q.slug} href={`/qna/${q.slug}`}>

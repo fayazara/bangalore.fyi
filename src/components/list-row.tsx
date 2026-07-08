@@ -17,7 +17,7 @@ export function ListContainer({
   return (
     <div
       className={cn(
-        "flex flex-col overflow-hidden rounded-xl bg-kumo-base",
+        "flex flex-col overflow-hidden rounded-3xl bg-kumo-base ring-1 ring-neutral-100",
         className,
       )}
     >

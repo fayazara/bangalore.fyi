@@ -18,9 +18,9 @@ export function Section({
 }) {
   return (
     <section className={cn("flex flex-col gap-4", className)}>
-      <div className="flex items-end justify-between gap-4">
+      <div className="flex items-end justify-between gap-4 px-6">
         <div className="flex flex-col gap-1">
-          <h2 className="text-xl font-semibold tracking-tight text-kumo-strong">
+          <h2 className="font-medium tracking-tight text-kumo-strong">
             {title}
           </h2>
           {description ? (

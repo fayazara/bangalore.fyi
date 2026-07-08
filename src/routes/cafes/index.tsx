@@ -20,7 +20,10 @@ export const Route = createFileRoute("/cafes/")({
   component: CafesIndex,
 })
 
-const areaOptions = ["All areas", ...Array.from(new Set(cafes.map((c) => c.area)))]
+const areaOptions = [
+  "All areas",
+  ...Array.from(new Set(cafes.map((c) => c.area))),
+]
 const sortOptions = ["Top rated", "Fastest wifi", "Quietest"] as const
 
 function CafesIndex() {
@@ -39,7 +42,8 @@ function CafesIndex() {
     })
 
     list = [...list].sort((a, b) => {
-      if (sort === "Fastest wifi") return b.ratings.wifiSpeedMbps - a.ratings.wifiSpeedMbps
+      if (sort === "Fastest wifi")
+        return b.ratings.wifiSpeedMbps - a.ratings.wifiSpeedMbps
       if (sort === "Quietest") return a.ratings.noise - b.ratings.noise
       return b.rating - a.rating
     })
@@ -50,7 +54,6 @@ function CafesIndex() {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-10 sm:px-6">
       <PageHeader
-        eyebrow="Cafes"
         title="Cafes to work from"
         description="Rated on wifi speed, power outlets, noise level and food - by people who've actually spent a workday there."
       />
@@ -113,15 +116,22 @@ function CafesIndex() {
                   {cafe.tags[0]}
                 </Badge>
                 <div>
-                  <p className="text-[15px] font-semibold text-kumo-strong">
+                  <p className="text-[15px] font-medium text-kumo-strong">
                     {cafe.name}
                   </p>
                   <p className="text-sm text-kumo-subtle">{cafe.area}</p>
                   <div className="mt-2 flex flex-wrap gap-1.5">
-                    <StatPill icon={WifiHighIcon} label={`${cafe.ratings.wifiSpeedMbps} Mbps`} />
+                    <StatPill
+                      icon={WifiHighIcon}
+                      label={`${cafe.ratings.wifiSpeedMbps} Mbps`}
+                    />
                     <StatPill
                       icon={PlugIcon}
-                      label={cafe.ratings.power >= 4 ? "Plenty of outlets" : "Some outlets"}
+                      label={
+                        cafe.ratings.power >= 4
+                          ? "Plenty of outlets"
+                          : "Some outlets"
+                      }
                     />
                     <StatPill
                       icon={SpeakerHighIcon}

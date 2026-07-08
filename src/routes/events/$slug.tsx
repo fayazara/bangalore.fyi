@@ -1,7 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router"
 import { Badge } from "@cloudflare/kumo/components/badge"
 import { Button } from "@cloudflare/kumo/components/button"
-import { Breadcrumbs } from "@cloudflare/kumo/components/breadcrumbs"
 import {
   CalendarBlankIcon,
   ClockIcon,
@@ -35,12 +34,6 @@ function EventDetail() {
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-8 sm:px-6">
-      <Breadcrumbs>
-        <Breadcrumbs.Link href="/events">Events</Breadcrumbs.Link>
-        <Breadcrumbs.Separator />
-        <Breadcrumbs.Current>{event.title}</Breadcrumbs.Current>
-      </Breadcrumbs>
-
       <div className="aspect-[21/9] w-full overflow-hidden rounded-2xl bg-kumo-recessed ring-1 ring-black/[0.06]">
         <img
           src={event.image}

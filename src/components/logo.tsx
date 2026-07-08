@@ -4,12 +4,12 @@ export function Logo({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 text-[17px] font-semibold tracking-tight text-kumo-strong",
+        "inline-flex items-center gap-1 font-medium tracking-tight text-kumo-strong",
         className,
       )}
     >
       bangalore
-      <span className="inline-block size-1 rounded-full bg-kumo-brand" />
+      <span className="inline-block size-1 rounded-full bg-black" />
       fyi
     </span>
   )

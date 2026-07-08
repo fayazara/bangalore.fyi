@@ -21,7 +21,7 @@ function formatEventDate(iso: string) {
 
 function EventsIndex() {
   const [activeCategory, setActiveCategory] = useState<EventCategory | "All">(
-    "All",
+    "All"
   )
 
   const filtered = useMemo(() => {
@@ -30,14 +30,13 @@ function EventsIndex() {
         ? events
         : events.filter((e) => e.category === activeCategory)
     return [...list].sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     )
   }, [activeCategory])
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-10 sm:px-6">
       <PageHeader
-        eyebrow="Events"
         title="What's happening in Bangalore"
         description="Meetups, markets, gigs, workshops and everything in between — posted by the people running them."
       />
@@ -49,7 +48,7 @@ function EventsIndex() {
             "rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
             activeCategory === "All"
               ? "bg-kumo-contrast text-white"
-              : "bg-kumo-tint text-kumo-default hover:bg-kumo-fill",
+              : "bg-kumo-tint text-kumo-default hover:bg-kumo-fill"
           )}
         >
           All events
@@ -62,7 +61,7 @@ function EventsIndex() {
               "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
               activeCategory === cat.name
                 ? "bg-kumo-contrast text-white"
-                : "bg-kumo-tint text-kumo-default hover:bg-kumo-fill",
+                : "bg-kumo-tint text-kumo-default hover:bg-kumo-fill"
             )}
           >
             <span aria-hidden>{cat.icon}</span>
