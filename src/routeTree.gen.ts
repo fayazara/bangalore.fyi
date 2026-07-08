@@ -10,53 +10,74 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ApiItemsRouteImport } from './routes/api/items'
-import { Route as ApiFilesRouteImport } from './routes/api/files'
+import { Route as EventsIndexRouteImport } from './routes/events/index'
+import { Route as CafesIndexRouteImport } from './routes/cafes/index'
+import { Route as EventsSlugRouteImport } from './routes/events/$slug'
+import { Route as CafesSlugRouteImport } from './routes/cafes/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiItemsRoute = ApiItemsRouteImport.update({
-  id: '/api/items',
-  path: '/api/items',
+const EventsIndexRoute = EventsIndexRouteImport.update({
+  id: '/events/',
+  path: '/events/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiFilesRoute = ApiFilesRouteImport.update({
-  id: '/api/files',
-  path: '/api/files',
+const CafesIndexRoute = CafesIndexRouteImport.update({
+  id: '/cafes/',
+  path: '/cafes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsSlugRoute = EventsSlugRouteImport.update({
+  id: '/events/$slug',
+  path: '/events/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CafesSlugRoute = CafesSlugRouteImport.update({
+  id: '/cafes/$slug',
+  path: '/cafes/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/api/files': typeof ApiFilesRoute
-  '/api/items': typeof ApiItemsRoute
+  '/cafes/$slug': typeof CafesSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/cafes/': typeof CafesIndexRoute
+  '/events/': typeof EventsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/api/files': typeof ApiFilesRoute
-  '/api/items': typeof ApiItemsRoute
+  '/cafes/$slug': typeof CafesSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/cafes': typeof CafesIndexRoute
+  '/events': typeof EventsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/api/files': typeof ApiFilesRoute
-  '/api/items': typeof ApiItemsRoute
+  '/cafes/$slug': typeof CafesSlugRoute
+  '/events/$slug': typeof EventsSlugRoute
+  '/cafes/': typeof CafesIndexRoute
+  '/events/': typeof EventsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/files' | '/api/items'
+  fullPaths: '/' | '/cafes/$slug' | '/events/$slug' | '/cafes/' | '/events/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/files' | '/api/items'
-  id: '__root__' | '/' | '/api/files' | '/api/items'
+  to: '/' | '/cafes/$slug' | '/events/$slug' | '/cafes' | '/events'
+  id:
+    '__root__' | '/' | '/cafes/$slug' | '/events/$slug' | '/cafes/' | '/events/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ApiFilesRoute: typeof ApiFilesRoute
-  ApiItemsRoute: typeof ApiItemsRoute
+  CafesSlugRoute: typeof CafesSlugRoute
+  EventsSlugRoute: typeof EventsSlugRoute
+  CafesIndexRoute: typeof CafesIndexRoute
+  EventsIndexRoute: typeof EventsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,18 +89,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/items': {
-      id: '/api/items'
-      path: '/api/items'
-      fullPath: '/api/items'
-      preLoaderRoute: typeof ApiItemsRouteImport
+    '/events/': {
+      id: '/events/'
+      path: '/events'
+      fullPath: '/events/'
+      preLoaderRoute: typeof EventsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/files': {
-      id: '/api/files'
-      path: '/api/files'
-      fullPath: '/api/files'
-      preLoaderRoute: typeof ApiFilesRouteImport
+    '/cafes/': {
+      id: '/cafes/'
+      path: '/cafes'
+      fullPath: '/cafes/'
+      preLoaderRoute: typeof CafesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events/$slug': {
+      id: '/events/$slug'
+      path: '/events/$slug'
+      fullPath: '/events/$slug'
+      preLoaderRoute: typeof EventsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cafes/$slug': {
+      id: '/cafes/$slug'
+      path: '/cafes/$slug'
+      fullPath: '/cafes/$slug'
+      preLoaderRoute: typeof CafesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -87,8 +122,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ApiFilesRoute: ApiFilesRoute,
-  ApiItemsRoute: ApiItemsRoute,
+  CafesSlugRoute: CafesSlugRoute,
+  EventsSlugRoute: EventsSlugRoute,
+  CafesIndexRoute: CafesIndexRoute,
+  EventsIndexRoute: EventsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

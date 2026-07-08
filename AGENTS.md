@@ -1,24 +1,24 @@
 # Agent Instructions
 
 This is a **TanStack Start + Cloudflare Workers** template. Read this whole
-file before generating code. The patterns here are the ones that work — most
+file before generating code. The patterns here are the ones that work - most
 AI training data is out of date for both frameworks.
 
 ## Stack
 
-- **TanStack Start** (RC) — full-stack React on Vite, file-based routing
+- **TanStack Start** (RC) - full-stack React on Vite, file-based routing
 - **Cloudflare Workers** as the runtime (not Node, not Pages)
 - **Cloudflare D1** (SQLite) as the database
 - **Cloudflare R2** for object/file storage
 - **Drizzle ORM** + **Drizzle Kit** for schema and migrations
 - **Zod** for input validation (`drizzle-zod` for table-derived schemas)
 - **Tailwind v4** + **Kumo** (`@cloudflare/kumo`) for UI
-- **Lucide React** (`lucide-react`) for icons
+- **Phospor icons React** for icons
 
 ## Skills
 
 This template includes agent skills for common workflows. Load a skill
-when the task matches — it will give you the exact steps and patterns.
+when the task matches - it will give you the exact steps and patterns.
 
 | Skill | When to use |
 |---|---|
@@ -26,7 +26,7 @@ when the task matches — it will give you the exact steps and patterns.
 | `new-db-table` | Adding a table, modifying the schema, creating a model |
 | `add-binding` | Adding a Cloudflare binding (KV, R2, D1, Queue, secret, var) |
 
-## How bindings work — read this first
+## How bindings work - read this first
 
 Bindings (D1, KV, R2, secrets, vars) are declared in `wrangler.jsonc` and
 accessed on the **server only** via:
@@ -63,7 +63,7 @@ await db.select().from(items).all()
 
 This template ships both. They are different things. Pick correctly.
 
-### Server functions — `createServerFn`
+### Server functions - `createServerFn`
 
 Use for data the **app's own UI** consumes. They are typed RPCs, not URLs.
 
@@ -85,7 +85,7 @@ export const Route = createFileRoute("/")({
 - Inputs validated via `.inputValidator(...)` / `.validator(...)`.
 - No URL to think about, no manual `fetch`.
 
-### API routes — file-based, `server.handlers`
+### API routes - file-based, `server.handlers`
 
 Use for **external HTTP callers**: curl, mobile apps, webhooks, anything
 that needs a stable URL + verb.
@@ -116,7 +116,7 @@ export const Route = createFileRoute("/api/items")({
 - Don't write `createServerFileRoute(...)`. That's an old API. Use
   `createFileRoute(...).server.handlers`.
 - Don't write a Hono/Express app inside the Worker entry. TanStack Start's
-  server entry already handles routing — just add a file route.
+  server entry already handles routing - just add a file route.
 - Don't import `process.env` for bindings. It won't work.
 - Don't pass `env` as a parameter. Import it.
 
@@ -134,7 +134,7 @@ npm run db:migrate:prod   # applies to REMOTE D1 (production)
 Notes:
 
 - Migrations live in `./drizzle/` and are applied by **wrangler**, not by
-  drizzle-kit. This is intentional — D1 has its own migrations system and
+  drizzle-kit. This is intentional - D1 has its own migrations system and
   we want a single source of truth.
 - `db:migrate` is `wrangler d1 migrations apply DB --local`. Local D1 data
   lives in `.wrangler/state/`.

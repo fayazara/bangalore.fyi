@@ -11,8 +11,8 @@ Cloudflare Workers with TanStack Start.
 - TanStack Start (RC) on Vite, deployed as a Cloudflare Worker
 - Cloudflare D1 binding wired up via `cloudflare:workers` `env`
 - Drizzle ORM + Drizzle Kit for the schema, wrangler for migrations
-- Example **server function** (`/`) — typed RPC for UI data
-- Example **API route** (`/api/items`) — GET + POST with zod validation
+- Example **server function** (`/`) - typed RPC for UI data
+- Example **API route** (`/api/items`) - GET + POST with zod validation
 - Tailwind v4 + shadcn/ui (Button preinstalled)
 - An `AGENTS.md` that documents the patterns AI agents keep getting wrong
 
@@ -73,7 +73,7 @@ AGENTS.md              # read this if you're an AI agent
 ## Why AGENTS.md?
 
 TanStack Start and the Workers Vite plugin moved fast over 2025. Most LLMs
-have stale training data — they'll generate old APIs like
+have stale training data - they'll generate old APIs like
 `createServerFileRoute`, try to mount a Hono app inside the Worker entry,
 or pass `env` around as a parameter. `AGENTS.md` documents what currently
 works so an AI agent reading it gets the right patterns on the first try.

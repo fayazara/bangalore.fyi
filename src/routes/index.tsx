@@ -1,121 +1,229 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router"
-import { createServerFn } from "@tanstack/react-start"
-import { useState } from "react"
-import { Button } from "@cloudflare/kumo/components/button"
-import { db } from "@/db"
-import { items } from "@/db/schema"
-import { desc } from "drizzle-orm"
-
-/**
- * Server function example.
- *
- * `createServerFn` is a typed RPC between client and server, called as
- * `getItems()` from anywhere (loader, event handler, effect). It runs
- * on the Worker.
- *
- * Prefer server functions for:
- *  - data this app's own UI consumes
- *  - end-to-end typed payloads (no hand-written fetch)
- *
- * Prefer API routes (see src/routes/api/items.ts) for:
- *  - external/3rd-party HTTP callers (curl, mobile, webhooks)
- *  - things that need a stable URL + verb
- */
-const getItems = createServerFn().handler(async () => {
-  return await db.select().from(items).orderBy(desc(items.createdAt)).all()
-})
+import { createFileRoute, Link } from "@tanstack/react-router"
+import { Badge } from "@cloudflare/kumo/components/badge"
+import { LinkButton } from "@cloudflare/kumo/components/button"
+import { cn } from "@cloudflare/kumo/utils"
+import { ArrowRightIcon } from "@phosphor-icons/react"
+import { ListContainer, ListRow, ListRowImage } from "@/components/list-row"
+import { Section } from "@/components/section"
+import { RatingStars } from "@/components/rating-stars"
+import { navItems } from "@/lib/nav"
+import { cafes } from "@/data/cafes"
+import { events } from "@/data/events"
+import { lists } from "@/data/lists"
+import { questions } from "@/data/qna"
 
 export const Route = createFileRoute("/")({
-  loader: () => getItems(),
-  component: App,
+  component: Home,
 })
 
-function App() {
-  const data = Route.useLoaderData()
-  const router = useRouter()
-  const [isPending, setIsPending] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+function formatEventDate(iso: string) {
+  return new Date(iso).toLocaleDateString("en-IN", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+  })
+}
 
-  async function addItem() {
-    setIsPending(true)
-    setError(null)
-    try {
-      const res = await fetch("/api/items", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          title: `Item ${new Date().toLocaleTimeString()}`,
-          description: "Created from the home page",
-        }),
-      })
-      if (!res.ok) {
-        const body = (await res.json().catch(() => null)) as {
-          error?: string
-        } | null
-        throw new Error(body?.error ?? `Request failed: ${res.status}`)
-      }
-      // Refresh the loader so the new item shows up.
-      await router.invalidate()
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Unknown error")
-    } finally {
-      setIsPending(false)
-    }
-  }
+function timeAgo(iso: string) {
+  const days = Math.round(
+    (Date.now() - new Date(iso).getTime()) / (1000 * 60 * 60 * 24)
+  )
+  if (days <= 0) return "today"
+  if (days === 1) return "1 day ago"
+  return `${days} days ago`
+}
 
+function Home() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">TanStack Start + Cloudflare Workers</h1>
-          <p>
-            D1 + Drizzle is wired up. {data.length} item(s) in the database.
-          </p>
+    <div className="flex flex-col gap-16 pb-20 sm:gap-20">
+      {/* Hero */}
+      <section>
+        <div className="mx-auto flex max-w-3xl flex-col gap-3 px-4 py-14 sm:px-6 sm:py-48">
+          <h1 className="max-w-2xl text-[32px] leading-[1.15] font-semibold tracking-tight text-kumo-strong sm:text-[40px]">
+            Everything you need to live well in Bangalore
+          </h1>
         </div>
+      </section>
 
-        <div className="flex flex-col gap-2">
-          <p className="font-medium">Try it:</p>
-          <pre className="rounded bg-gray-100 p-2 text-xs dark:bg-gray-800">
-            {`# read
-curl http://localhost:3000/api/items
-
-# write
-curl -X POST http://localhost:3000/api/items \\
-  -H 'content-type: application/json' \\
-  -d '{"title":"hello","description":"world"}'`}
-          </pre>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-wrap gap-2">
-            <Button
-              variant="primary"
-              onClick={addItem}
-              disabled={isPending}
-              loading={isPending}
-            >
-              {isPending ? "Adding..." : "Add item to D1"}
-            </Button>
-          </div>
-          {error ? <p className="text-xs text-red-600">{error}</p> : null}
-        </div>
-
-        {data.length > 0 ? (
-          <ul className="flex flex-col gap-1">
-            {data.map((item) => (
-              <li key={item.id} className="border-b py-1">
-                <span className="font-medium">{item.title}</span>
-                {item.description ? (
-                  <span className="text-gray-500"> — {item.description}</span>
-                ) : null}
-              </li>
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-16 px-4 sm:gap-32 sm:px-6">
+        {/* Explore grid */}
+        <Section
+          title="Explore bangalore.fyi"
+          description="Ten ways to find what you need, all built by the community."
+        >
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="flex items-center gap-4 rounded-2xl bg-kumo-base p-5"
+              >
+                <span
+                  className={cn(
+                    "flex size-11 shrink-0 items-center justify-center rounded-xl",
+                    item.tint.card,
+                  )}
+                >
+                  <item.icon
+                    size={22}
+                    weight="regular"
+                    className={item.tint.icon}
+                  />
+                </span>
+                <div className="flex flex-1 flex-col gap-0.5">
+                  <p className="text-base font-semibold text-kumo-strong">
+                    {item.label}
+                  </p>
+                  <p className="text-sm text-kumo-subtle">{item.description}</p>
+                </div>
+              </Link>
             ))}
-          </ul>
-        ) : (
-          <p className="text-xs text-gray-500">
-            No items yet. Click the button above to add one.
-          </p>
-        )}
+          </div>
+        </Section>
+
+        {/* This week's events */}
+        <Section
+          title="This week in Bangalore"
+          description="Meetups, markets, gigs and workshops happening soon."
+          viewAllHref="/events"
+        >
+          <ListContainer>
+            {events.slice(0, 5).map((event) => (
+              <ListRow
+                key={event.slug}
+                href={`/events/${event.slug}`}
+                className="items-stretch"
+              >
+                <ListRowImage src={event.image} alt={event.title} />
+                <div className="flex flex-1 flex-col justify-between gap-1">
+                  <Badge variant="outline" className="w-fit">
+                    {event.category}
+                  </Badge>
+                  <div>
+                    <p className="text-[15px] font-semibold text-kumo-strong">
+                      {event.title}
+                    </p>
+                    <p className="text-sm text-kumo-subtle">
+                      {event.venue}, {event.area}
+                    </p>
+                  </div>
+                </div>
+                <div className="hidden shrink-0 text-right sm:block">
+                  <p className="text-sm font-medium text-kumo-strong">
+                    {formatEventDate(event.date)}
+                  </p>
+                  <p className="text-sm text-kumo-subtle">{event.price}</p>
+                </div>
+              </ListRow>
+            ))}
+          </ListContainer>
+        </Section>
+
+        {/* Cafes */}
+        <Section
+          title="Cafes to work from"
+          description="Rated on wifi, power outlets, noise and food - not just vibes."
+          viewAllHref="/cafes"
+        >
+          <ListContainer>
+            {cafes.slice(0, 4).map((cafe) => (
+              <ListRow
+                key={cafe.slug}
+                href={`/cafes/${cafe.slug}`}
+                className="items-stretch"
+              >
+                <ListRowImage src={cafe.image} alt={cafe.name} />
+                <div className="flex flex-1 flex-col justify-between gap-1">
+                  <Badge variant="outline" className="w-fit">
+                    {cafe.tags[0]}
+                  </Badge>
+                  <div>
+                    <p className="text-[15px] font-semibold text-kumo-strong">
+                      {cafe.name}
+                    </p>
+                    <p className="text-sm text-kumo-subtle">{cafe.area}</p>
+                  </div>
+                </div>
+                <div className="hidden shrink-0 text-right sm:block">
+                  <div className="flex items-center justify-end gap-1.5">
+                    <RatingStars value={cafe.rating} />
+                    <span className="text-xs text-kumo-subtle">
+                      {cafe.rating}
+                    </span>
+                  </div>
+                  <p className="text-sm text-kumo-subtle">{cafe.priceRange}</p>
+                </div>
+              </ListRow>
+            ))}
+          </ListContainer>
+        </Section>
+
+        {/* Curated lists */}
+        <Section
+          title="Curated by locals"
+          description="Ranked lists from people who actually know."
+          viewAllHref="/lists"
+        >
+          <ListContainer>
+            {lists.slice(0, 3).map((list) => (
+              <ListRow key={list.slug} href={`/lists/${list.slug}`}>
+                <ListRowImage src={list.coverImage} alt={list.title} />
+                <div className="flex flex-1 flex-col gap-1">
+                  <p className="text-[15px] font-semibold text-kumo-strong">
+                    {list.title}
+                  </p>
+                  <p className="text-sm text-kumo-subtle">
+                    by {list.curator.name} · {list.items.length} picks
+                  </p>
+                </div>
+              </ListRow>
+            ))}
+          </ListContainer>
+        </Section>
+
+        {/* Q&A */}
+        <Section
+          title="Recently asked"
+          description="Questions from people figuring out life here."
+          viewAllHref="/qna"
+        >
+          <ListContainer>
+            {questions.slice(0, 4).map((q) => (
+              <ListRow key={q.slug} href={`/qna/${q.slug}`}>
+                <div className="flex flex-1 flex-col gap-1">
+                  <p className="text-[15px] font-medium text-kumo-strong">
+                    {q.title}
+                  </p>
+                  <p className="text-sm text-kumo-subtle">
+                    {q.answers.length} answers · {timeAgo(q.askedAt)}
+                  </p>
+                </div>
+              </ListRow>
+            ))}
+          </ListContainer>
+        </Section>
+
+        {/* CTA */}
+        <div className="flex flex-col items-start gap-4 rounded-2xl bg-kumo-contrast px-6 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-10">
+          <div className="flex flex-col gap-1.5">
+            <h2 className="text-xl font-semibold text-white">
+              Know something the city should know?
+            </h2>
+            <p className="max-w-md text-sm text-white/70">
+              Post a classified, review a cafe, or write a curated list.
+              Everything on bangalore.fyi comes from people like you.
+            </p>
+          </div>
+          <LinkButton
+            href="/classifieds/new"
+            variant="primary"
+            size="lg"
+            icon={ArrowRightIcon}
+            className="shrink-0"
+          >
+            Get started
+          </LinkButton>
+        </div>
       </div>
     </div>
   )
