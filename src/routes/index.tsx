@@ -38,11 +38,16 @@ function Home() {
     <div className="flex flex-col gap-16 pt-8 pb-20 sm:gap-20">
       {/* Hero */}
       <section>
-        <div className="relative mx-auto h-64 max-w-3xl gap-3 rounded-3xl bg-white px-4 pt-6 ring-1 ring-neutral-100 sm:px-6">
-          <h1 className="text-neutral-700 max-w-2xl text-4xl leading-[1.15] font-semibold tracking-tight">
-            Everything you need to live well in Bangalore
-          </h1>
-          <span className="absolute right-4 bottom-4 size-3.5 rounded-full bg-neutral-600"></span>
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <div className="relative h-64 rounded-3xl bg-white px-4 pt-6 ring-1 ring-neutral-100 sm:px-6 overflow-hidden">
+            <h1
+              className="max-w-2xl text-4xl leading-[1.15] font-semibold text-neutral-700"
+              style={{ fontFamily: "SF Compact Display" }}
+            >
+              Everything you need to live well in Bangalore
+            </h1>
+            <span className="absolute right-4 bottom-4 size-3.5 rounded-full bg-neutral-600"></span>
+          </div>
         </div>
       </section>
 
@@ -186,24 +191,21 @@ function Home() {
         </Section>
 
         {/* CTA */}
-        <div className="flex flex-col items-start gap-4 rounded-2xl bg-kumo-contrast px-6 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-10">
-          <div className="flex flex-col gap-1.5">
-            <h2 className="text-xl font-semibold text-white">
+        <div className="items-start gap-4 rounded-2xl bg-kumo-base p-6 ring-1 ring-neutral-100 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mb-8 flex flex-col gap-1.5">
+            <h2 className="text-xl font-semibold text-kumo-strong">
               Know something the city should know?
             </h2>
-            <p className="max-w-md text-sm text-white/70">
+            <p className="max-w-md tracking-tight text-kumo-subtle">
               Post a classified, review a cafe, or write a curated list.
               Everything on bangalore.fyi comes from people like you.
             </p>
           </div>
           <LinkButton
             href="/classifieds/new"
-            variant="primary"
-            size="lg"
-            icon={ArrowRightIcon}
-            className="shrink-0"
+            variant="secondary"
           >
-            Get started
+            Submit
           </LinkButton>
         </div>
       </div>

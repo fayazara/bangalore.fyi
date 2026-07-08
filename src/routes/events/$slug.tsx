@@ -70,7 +70,7 @@ function EventDetail() {
       </div>
 
       <div className="flex flex-wrap items-center gap-4">
-        <Button variant="primary" disabled={spotsLeft <= 0}>
+        <Button variant="secondary" disabled={spotsLeft <= 0}>
           {spotsLeft > 0 ? "RSVP · " + event.price : "Join waitlist"}
         </Button>
         <div className="flex items-center gap-3">

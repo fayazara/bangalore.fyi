@@ -46,7 +46,14 @@ export const cafes: Cafe[] = [
     reviewCount: 214,
     openHours: "8:00 AM – 10:00 PM",
     tags: ["Great for calls", "Strong AC", "Outdoor seating"],
-    ratings: { wifi: 5, wifiSpeedMbps: 120, power: 4, noise: 2, food: 4, seating: 4 },
+    ratings: {
+      wifi: 5,
+      wifiSpeedMbps: 120,
+      power: 4,
+      noise: 2,
+      food: 4,
+      seating: 4,
+    },
     description:
       "A two-floor cafe with a dedicated 'quiet floor' upstairs that's unofficially become Indiranagar's WFH living room. Filter coffee is excellent, and the wifi rarely drops below 100 Mbps even at peak hours.",
     reviews: [
@@ -86,7 +93,14 @@ export const cafes: Cafe[] = [
     reviewCount: 168,
     openHours: "9:00 AM – 11:00 PM",
     tags: ["Bookshelves", "Late night", "Vegetarian menu"],
-    ratings: { wifi: 4, wifiSpeedMbps: 80, power: 3, noise: 3, food: 5, seating: 5 },
+    ratings: {
+      wifi: 4,
+      wifiSpeedMbps: 80,
+      power: 3,
+      noise: 3,
+      food: 5,
+      seating: 5,
+    },
     description:
       "Half bookstore, half cafe - you can pick a novel off the shelf while you wait for your cold brew. Gets a founder-and-laptop crowd on weekday afternoons, more social in the evenings.",
     reviews: [
@@ -120,7 +134,14 @@ export const cafes: Cafe[] = [
     reviewCount: 301,
     openHours: "7:30 AM – 9:00 PM",
     tags: ["Standing desks", "Fast wifi", "Great espresso"],
-    ratings: { wifi: 5, wifiSpeedMbps: 150, power: 5, noise: 2, food: 3, seating: 3 },
+    ratings: {
+      wifi: 5,
+      wifiSpeedMbps: 150,
+      power: 5,
+      noise: 2,
+      food: 3,
+      seating: 3,
+    },
     description:
       "Built for people who actually work here - every table has two outlets, there's a bank of standing desks by the window, and the espresso is roasted in-house. Seating fills up fast after 10am.",
     reviews: [
@@ -154,7 +175,14 @@ export const cafes: Cafe[] = [
     reviewCount: 142,
     openHours: "7:00 AM – 8:30 PM",
     tags: ["Plant-filled", "Traditional filter coffee", "Budget-friendly"],
-    ratings: { wifi: 3, wifiSpeedMbps: 40, power: 3, noise: 2, food: 4, seating: 4 },
+    ratings: {
+      wifi: 3,
+      wifiSpeedMbps: 40,
+      power: 3,
+      noise: 2,
+      food: 4,
+      seating: 4,
+    },
     description:
       "A quiet, plant-covered courtyard cafe that leans traditional - proper filter coffee in steel tumblers, alongside a small work-friendly indoor section. Wifi is decent but not built for video calls.",
     reviews: [
@@ -188,7 +216,14 @@ export const cafes: Cafe[] = [
     reviewCount: 96,
     openHours: "8:00 AM – 9:00 PM",
     tags: ["Meeting rooms", "Day passes", "Printer on-site"],
-    ratings: { wifi: 5, wifiSpeedMbps: 200, power: 5, noise: 3, food: 3, seating: 5 },
+    ratings: {
+      wifi: 5,
+      wifiSpeedMbps: 200,
+      power: 5,
+      noise: 3,
+      food: 3,
+      seating: 5,
+    },
     description:
       "More coworking space than cafe, but the counter serves genuinely good coffee and food. Popular with ITPL employees who want a change of scenery without leaving the tech park.",
     reviews: [
@@ -222,7 +257,14 @@ export const cafes: Cafe[] = [
     reviewCount: 88,
     openHours: "7:00 AM – 8:00 PM",
     tags: ["Heritage building", "Filter coffee", "Morning crowd"],
-    ratings: { wifi: 3, wifiSpeedMbps: 35, power: 2, noise: 3, food: 4, seating: 3 },
+    ratings: {
+      wifi: 3,
+      wifiSpeedMbps: 35,
+      power: 2,
+      noise: 3,
+      food: 4,
+      seating: 3,
+    },
     description:
       "A small, old-school coffee house that roasts its own beans on-site. Not built for laptops - outlets are scarce - but a great spot for a short work sprint over excellent coffee.",
     reviews: [

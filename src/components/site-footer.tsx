@@ -35,7 +35,7 @@ export function SiteFooter() {
               />
               <Button
                 type="submit"
-                variant="primary"
+                variant="secondary"
                 shape="square"
                 aria-label="Subscribe"
                 icon={ArrowRightIcon}

@@ -89,7 +89,7 @@ function CafeDetail() {
         <LinkButton
           href={`https://maps.google.com/?q=${encodeURIComponent(cafe.address)}`}
           external
-          variant="primary"
+          variant="secondary"
           icon={NavigationArrowIcon}
           className="mt-1 justify-center"
         >

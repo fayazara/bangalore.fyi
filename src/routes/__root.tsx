@@ -49,9 +49,18 @@ export const Route = createRootRoute({
         rel: "stylesheet",
         href: appCss,
       },
+      // SVG favicon adapts to the browser/OS color scheme via a
+      // `prefers-color-scheme` media query baked into the SVG itself.
+      {
+        rel: "icon",
+        type: "image/svg+xml",
+        href: "/favicon.svg",
+      },
+      // Fallback for browsers that don't support SVG favicons (e.g. Safari).
       {
         rel: "icon",
         href: "/favicon.ico",
+        sizes: "any",
       },
     ],
   }),
